@@ -53,7 +53,7 @@ class TitleScene extends Phaser.Scene {
         });
 
         // Credit Prompt
-        this.creditPrompt = this.add.text(this.scale.width / 2, this.scale.height / 2 + 100, "Want to view who created this masterpiece?\n             Press BACKSPACE to View", {
+        this.creditPrompt = this.add.text(this.scale.width / 2, this.scale.height / 2 + 100, "Want to view who created this masterpiece?\n                  Press ESC for Credits", {
             fontFamily: 'Arial',
             fontSize: '20px',
             color: '#ffffff'
@@ -70,11 +70,11 @@ class TitleScene extends Phaser.Scene {
         // Input to start game
         this.input.keyboard.once('keydown-SPACE', () => {
             this.titleMusic.stop();
-            this.scene.start("platformerScene");
+            this.scene.start("MenuScene", {level : -1});
         });
 
         // Input to view credits
-        this.input.keyboard.once('keydown-BACKSPACE', () => {
+        this.input.keyboard.once('keydown-ESC', () => {
             this.titleMusic.stop();
             this.scene.start("creditsScene");
         });

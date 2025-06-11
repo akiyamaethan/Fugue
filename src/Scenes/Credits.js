@@ -19,7 +19,7 @@ class CreditsScene extends Phaser.Scene {
         // Credit lines
         const creditsText = [
             "Game Design: Ethan Akiyama",
-            "Programming: Ethan Akiyama",
+            "Programming: Ethan Akiyama, Joseph Coulson, Humza Saulat",
             "Art: Kenny.nl (kenney.nl)",
             "Music & Sound: Ethan Akiyama",
             "Made with Phaser 3",
@@ -36,14 +36,14 @@ class CreditsScene extends Phaser.Scene {
         });
 
         // Return instruction
-        this.add.text(centerX, height - 50, "Press SPACE to return", {
+        this.add.text(centerX, height - 50, "Press ESC to return", {
             fontFamily: "Arial",
             fontSize: "18px",
             color: "#aaaaaa"
         }).setOrigin(0.5);
 
         // Input
-        this.input.keyboard.once("keydown-SPACE", () => {
+        this.input.keyboard.once("keydown-ESC", () => {
             this.scene.start("titleScene");
         });
     }

@@ -15,6 +15,8 @@ class Platformer2 extends Phaser.Scene {
         this.note1collected = false;
         this.note2collected = false;
         this.note3collected = false;
+        this.isPaused = false;
+        this.pauseMenu = null;
     }
 
 
@@ -222,6 +224,7 @@ class Platformer2 extends Phaser.Scene {
         // INPUT SETUP 
         cursors = this.input.keyboard.createCursorKeys();
         this.rKey = this.input.keyboard.addKey('R');
+        this.escKey = this.input.keyboard.addKey('ESC');
 
         
         // CAMERA
@@ -236,7 +239,20 @@ class Platformer2 extends Phaser.Scene {
         // DEBUGGING HELP:
         //console.log('x: ' + my.sprite.player.x);
         //console.log('y: ' + my.sprite.player.y);
+        // Handle ESC key for pause menu
+        if (Phaser.Input.Keyboard.JustDown(this.escKey)) {
+            if (this.isPaused) {
+                this.closePauseMenu();
+            } else {
+                this.createPauseMenu();
+            }
+            return; // Don't process other inputs when toggling pause
+        }
 
+        // Don't process game updates if paused
+        if (this.isPaused) {
+            return;
+        }
         // PLAYER MOVEMENT & INPUT
         if (cursors.left.isDown || cursors.right.isDown) {
             my.sprite.player.setAccelerationX(cursors.left.isDown ? -this.ACCELERATION : this.ACCELERATION);
@@ -300,5 +316,134 @@ class Platformer2 extends Phaser.Scene {
             let randomy = Math.floor(Math.random() * (maxy - miny + 1)) + miny;
             if (emit == 2) my.vfx.bubbles.emitParticleAt(randomx,randomy);
         }); */
+    }
+
+    createPauseMenu() {
+        // Pause the physics and sounds
+        this.physics.pause();
+        this.sound.pauseAll();
+        
+        // Create semi-transparent overlay
+        this.pauseOverlay = this.add.rectangle(
+            this.cameras.main.scrollX + this.cameras.main.width / 2,
+            this.cameras.main.scrollY + this.cameras.main.height / 2,
+            this.cameras.main.width / this.SCALE,
+            this.cameras.main.height / this.SCALE,
+            0x000000,
+            0.5
+        ).setScale(this.SCALE).setDepth(1000);
+
+        // Create pause menu container
+        this.pauseMenu = this.add.container(
+            this.cameras.main.scrollX + this.cameras.main.width / 2,
+            this.cameras.main.scrollY + this.cameras.main.height / 2
+        ).setDepth(1001);
+
+        // Create graphics object for rounded rectangles
+        const graphics = this.add.graphics().setDepth(1001);
+
+        // Menu background with rounded corners and transparency
+        graphics.fillStyle(0xffffff, 0.95);
+        graphics.lineStyle(4, 0x000000, 1);
+        graphics.fillRoundedRect(-200, -150, 400, 300, 20);
+        graphics.strokeRoundedRect(-200, -150, 400, 300, 20);
+
+        // Back button (top left of menu) - rounded rectangle
+        const backButtonGraphics = this.add.graphics().setDepth(1002);
+        backButtonGraphics.fillStyle(0xcccccc, 0.9);
+        backButtonGraphics.lineStyle(2, 0x666666, 1);
+        backButtonGraphics.fillRoundedRect(-230, -140, 120, 40, 10);
+        backButtonGraphics.strokeRoundedRect(-230, -140, 120, 40, 10);
+
+        // Create invisible interactive area for back button
+        const backButton = this.add.rectangle(-170, -120, 120, 40, 0x000000, 0);
+        const backText = this.add.text(-170, -120, 'Back (esc)', {
+            fontSize: `${16 * this.SCALE}px`,
+            fill: '#000000',
+            fontFamily: 'Arial',
+            resolution: 2
+        }).setOrigin(0.5).setScale(1 / this.SCALE);
+
+        // Back to Title button - rounded rectangle
+        const titleButtonGraphics = this.add.graphics().setDepth(1002);
+        titleButtonGraphics.fillStyle(0xcccccc, 0.9);
+        titleButtonGraphics.lineStyle(2, 0x666666, 1);
+        titleButtonGraphics.fillRoundedRect(-100, -5, 200, 50, 10);
+        titleButtonGraphics.strokeRoundedRect(-100, -5, 200, 50, 10);
+
+        // Create invisible interactive area for title button
+        const titleButton = this.add.rectangle(0, 20, 200, 50, 0x000000, 0);
+        const titleText = this.add.text(0, 20, 'Back to Title', {
+            fontSize: `${18 * this.SCALE}px`,
+            fill: '#000000',
+            fontFamily: 'Arial',
+            resolution: 2
+        }).setOrigin(0.5).setScale(1 / this.SCALE);
+
+        // Add interactive functionality
+        backButton.setInteractive({ cursor: 'pointer' });
+        titleButton.setInteractive({ cursor: 'pointer' });
+
+        // Hover effects
+        backButton.on('pointerover', () => {
+            backButtonGraphics.clear();
+            backButtonGraphics.fillStyle(0xe0e0e0, 0.9);
+            backButtonGraphics.lineStyle(2, 0x666666, 1);
+            backButtonGraphics.fillRoundedRect(-230, -140, 120, 40, 10);
+            backButtonGraphics.strokeRoundedRect(-230, -140, 120, 40, 10);
+        });
+        backButton.on('pointerout', () => {
+            backButtonGraphics.clear();
+            backButtonGraphics.fillStyle(0xcccccc, 0.9);
+            backButtonGraphics.lineStyle(2, 0x666666, 1);
+            backButtonGraphics.fillRoundedRect(-230, -140, 120, 40, 10);
+            backButtonGraphics.strokeRoundedRect(-230, -140, 120, 40, 10);
+        });
+
+        titleButton.on('pointerover', () => {
+            titleButtonGraphics.clear();
+            titleButtonGraphics.fillStyle(0xe0e0e0, 0.9);
+            titleButtonGraphics.lineStyle(2, 0x666666, 1);
+            titleButtonGraphics.fillRoundedRect(-100, -5, 200, 50, 10);
+            titleButtonGraphics.strokeRoundedRect(-100, -5, 200, 50, 10);
+        });
+        titleButton.on('pointerout', () => {
+            titleButtonGraphics.clear();
+            titleButtonGraphics.fillStyle(0xcccccc, 0.9);
+            titleButtonGraphics.lineStyle(2, 0x666666, 1);
+            titleButtonGraphics.fillRoundedRect(-100, -5, 200, 50, 10);
+            titleButtonGraphics.strokeRoundedRect(-100, -5, 200, 50, 10);
+        });
+
+        // Click handlers
+        backButton.on('pointerdown', () => {
+            this.closePauseMenu();
+        });
+
+        titleButton.on('pointerdown', () => {
+            this.sound.stopAll();
+            // Change this to your actual title scene name
+            this.scene.start('titleScene'); // or whatever your title scene is called
+        });
+
+        // Add all elements to container
+        this.pauseMenu.add([graphics, backButtonGraphics, backButton, backText, titleButtonGraphics, titleButton, titleText]);
+
+        this.isPaused = true;
+    }
+
+    closePauseMenu() {
+        if (this.pauseMenu) {
+            // Resume physics and sounds
+            this.physics.resume();
+            this.sound.resumeAll();
+            
+            // Destroy menu elements
+            this.pauseOverlay.destroy();
+            this.pauseMenu.destroy();
+            this.pauseMenu = null;
+            
+            this.isPaused = false;
+        }
     }
 }
