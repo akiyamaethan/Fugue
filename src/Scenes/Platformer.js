@@ -183,7 +183,7 @@ class Platformer extends Phaser.Scene {
                 this.sound.stopAll();
                 this.chordSound.play();
                 this.walkingSound.stop();
-                this.scene.start("platformerScene2");
+                this.scene.start("platformerScene3");
             }
         }, null, this);
 
