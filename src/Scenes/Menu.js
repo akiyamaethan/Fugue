@@ -4,11 +4,6 @@ class MenuScene extends Phaser.Scene {
     }
 
     init(data){
-        //codes for back option
-        //-1 title
-        //0 tutorial
-        // 1 level 1
-        // 2 level 2
         this.level = data.level;
     }
     preload() {
