@@ -1,3 +1,5 @@
+//THIS IS ACTUALLY LEVEL 3 PSYCHE
+
 class Platformer2 extends Phaser.Scene {
     constructor() {
         super("platformerScene2");
@@ -18,11 +20,11 @@ class Platformer2 extends Phaser.Scene {
 
     preload(){
         // LOAD AUDIO FOR LEVEL
-        this.load.audio("note1Soundl2", "assets/tumbao.mp3");
-        this.load.audio("note2Soundl2", "assets/bass.mp3");
-        this.load.audio("note3Soundl2", "assets/melody.mp3");
+        this.load.audio("note1Soundl3", "assets/note1l3.mp3");
+        this.load.audio("note2Soundl3", "assets/note2l3.mp3");
+        this.load.audio("note3Soundl3", "assets/note3l3.mp3");
         this.load.audio("chordSound", "assets/chord.mp3");
-        this.load.audio("backgroundl2", "assets/montuno.mp3");
+        this.load.audio("backgroundl3", "assets/backl3.mp3");
         this.load.audio("walking", "assets/walking.mp3");
         this.load.audio("jump", "assets/jump.mp3");
     }
@@ -31,11 +33,11 @@ class Platformer2 extends Phaser.Scene {
     create() {
         // LOAD AUDIO INTO SOUND MANAGER
         this.sound.stopAll();
-        this.note1Sound = this.sound.add("note1Soundl2");
-        this.note2Sound = this.sound.add("note2Soundl2");
-        this.note3Sound = this.sound.add("note3Soundl2");
+        this.note1Sound = this.sound.add("note1Soundl3");
+        this.note2Sound = this.sound.add("note2Soundl3");
+        this.note3Sound = this.sound.add("note3Soundl3");
         this.chordSound = this.sound.add("chordSound");
-        this.backgroundMusic = this.sound.add("backgroundl2");
+        this.backgroundMusic = this.sound.add("backgroundl3");
         this.walkingSound = this.sound.add("walking");
         this.jumpSound = this.sound.add("jump");
         this.backgroundMusic.play({

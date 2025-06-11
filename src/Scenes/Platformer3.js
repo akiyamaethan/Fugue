@@ -1,3 +1,5 @@
+// THIS IS ACTUALLY LEVEL 2 PSYCHE U THOT
+
 class Platformer3 extends Phaser.Scene {
     constructor() {
         super("platformerScene3");
@@ -124,7 +126,7 @@ class Platformer3 extends Phaser.Scene {
 
         // PLAYER SETUP
         my.sprite.player = this.physics.add.sprite(spawnX, spawnY, "platformer_characters", "tile_0000.png");
-        //my.sprite.player.setCollideWorldBounds(true);
+        my.sprite.player.setCollideWorldBounds(true);
         my.sprite.player.setDragX(1000);
         my.sprite.player.setMaxVelocity(200,500);
 
