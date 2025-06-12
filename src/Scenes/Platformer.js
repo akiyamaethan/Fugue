@@ -282,22 +282,16 @@ class Platformer extends Phaser.Scene {
         // Create graphics object for rounded rectangles
         const graphics = this.add.graphics().setDepth(1001);
 
-        // Menu background with rounded corners and transparency
-        graphics.fillStyle(0xffffff, 0.95);
-        graphics.lineStyle(4, 0x000000, 1);
-        graphics.fillRoundedRect(-200, -150, 400, 300, 20);
-        graphics.strokeRoundedRect(-200, -150, 400, 300, 20);
-
         // Back button (top left of menu) - rounded rectangle
         const backButtonGraphics = this.add.graphics().setDepth(1002);
         backButtonGraphics.fillStyle(0xcccccc, 0.9);
         backButtonGraphics.lineStyle(2, 0x666666, 1);
-        backButtonGraphics.fillRoundedRect(-230, -140, 120, 40, 10);
-        backButtonGraphics.strokeRoundedRect(-230, -140, 120, 40, 10);
+        backButtonGraphics.fillRoundedRect(-62.5, -140, 120, 40, 10);
+        backButtonGraphics.strokeRoundedRect(-62.5, -140, 120, 40, 10);
 
         // Create invisible interactive area for back button
-        const backButton = this.add.rectangle(-170, -120, 120, 40, 0x000000, 0);
-        const backText = this.add.text(-170, -120, 'Back (esc)', {
+        const backButton = this.add.rectangle(0, -120, 120, 40, 0x000000, 0);
+        const backText = this.add.text(0, -120, 'Back (ESC)', {
             fontSize: `${16 * this.SCALE}px`,
             fill: '#000000',
             fontFamily: 'Arial',
@@ -306,7 +300,7 @@ class Platformer extends Phaser.Scene {
 
         // Back to Title button - rounded rectangle
         const titleButtonGraphics = this.add.graphics().setDepth(1002);
-        titleButtonGraphics.fillStyle(0xcccccc, 0.9);
+        titleButtonGraphics.fillStyle(0xFF7074, 0.9);
         titleButtonGraphics.lineStyle(2, 0x666666, 1);
         titleButtonGraphics.fillRoundedRect(-100, -5, 200, 50, 10);
         titleButtonGraphics.strokeRoundedRect(-100, -5, 200, 50, 10);
@@ -329,27 +323,27 @@ class Platformer extends Phaser.Scene {
             backButtonGraphics.clear();
             backButtonGraphics.fillStyle(0xe0e0e0, 0.9);
             backButtonGraphics.lineStyle(2, 0x666666, 1);
-            backButtonGraphics.fillRoundedRect(-230, -140, 120, 40, 10);
-            backButtonGraphics.strokeRoundedRect(-230, -140, 120, 40, 10);
+            backButtonGraphics.fillRoundedRect(-62.5, -140, 120, 40, 10);
+            backButtonGraphics.strokeRoundedRect(-62.5, -140, 120, 40, 10);
         });
         backButton.on('pointerout', () => {
             backButtonGraphics.clear();
             backButtonGraphics.fillStyle(0xcccccc, 0.9);
             backButtonGraphics.lineStyle(2, 0x666666, 1);
-            backButtonGraphics.fillRoundedRect(-230, -140, 120, 40, 10);
-            backButtonGraphics.strokeRoundedRect(-230, -140, 120, 40, 10);
+            backButtonGraphics.fillRoundedRect(-62.5, -140, 120, 40, 10);
+            backButtonGraphics.strokeRoundedRect(-62.5, -140, 120, 40, 10);
         });
 
         titleButton.on('pointerover', () => {
             titleButtonGraphics.clear();
-            titleButtonGraphics.fillStyle(0xe0e0e0, 0.9);
+            titleButtonGraphics.fillStyle(0xFF8488, 0.9);
             titleButtonGraphics.lineStyle(2, 0x666666, 1);
             titleButtonGraphics.fillRoundedRect(-100, -5, 200, 50, 10);
             titleButtonGraphics.strokeRoundedRect(-100, -5, 200, 50, 10);
         });
         titleButton.on('pointerout', () => {
             titleButtonGraphics.clear();
-            titleButtonGraphics.fillStyle(0xcccccc, 0.9);
+            titleButtonGraphics.fillStyle(0xFF7074, 0.9);
             titleButtonGraphics.lineStyle(2, 0x666666, 1);
             titleButtonGraphics.fillRoundedRect(-100, -5, 200, 50, 10);
             titleButtonGraphics.strokeRoundedRect(-100, -5, 200, 50, 10);

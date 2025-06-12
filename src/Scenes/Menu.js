@@ -17,10 +17,12 @@ class MenuScene extends Phaser.Scene {
         this.cameras.main.setBackgroundColor('#1a1a2e');
 
         // Create title
-        this.add.text(720, 80, 'LEVEL SELECT', {
+        const title = this.add.text(720, 80, 'LEVEL SELECT', {
             fontSize: '64px',
             fontFamily: 'Georgia, serif',
-            color: '#ffffff'
+            color: '#ffffff',
+            backgroundColor: 'transparent',
+            padding: { x: 20, y: 12 },
         }).setOrigin(0.5);
 
         // Button styling configuration
@@ -36,7 +38,7 @@ class MenuScene extends Phaser.Scene {
         };
 
         // Create Back button
-        const backButton = this.add.text(160, 80, 'Back (esc)', buttonStyle)
+        const backButton = this.add.text(240, 80, 'Back (ESC)', buttonStyle)
             .setOrigin(0.5)
             .setInteractive({ useHandCursor: true })
             .on('pointerdown', () => this.handleBackButton())
@@ -87,7 +89,9 @@ class MenuScene extends Phaser.Scene {
             button.bg = bg;
         });
 
-                const sparkleKeys = ['noteRed', 'noteBlue'];
+        //title.bg.fillStyle(0xd4d4d4);
+        //title.bg.fillRoundedRect(title.getBounds().x - 5, title.getBounds().y - 2, title.getBounds().width + 10, title.getBounds().height + 4, 12);
+        const sparkleKeys = ['noteRed', 'noteBlue'];
 
         this.time.addEvent({
             delay: 500,

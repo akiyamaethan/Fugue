@@ -5,7 +5,6 @@ class TitleScene extends Phaser.Scene {
 
     preload() {
         this.load.audio('titleTrack', 'assets/montuno.mp3');
-        this.load.image('background', 'assets/title_bg.png');
         this.load.image('noteRed', 'assets/music note cute red.png');
         this.load.image('noteBlue', 'assets/music note cute.png');
     }
